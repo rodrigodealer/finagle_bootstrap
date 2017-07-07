@@ -1,6 +1,5 @@
 package com.github.rodrigodealer
 
-import com.github.rodrigodealer.HealthcheckService.{apiKey, apiSecret}
 import com.github.rodrigodealer.client.HttpClient
 import com.github.rodrigodealer.json.JsonUtil.fromJson
 import com.github.rodrigodealer.json.Responses

@@ -6,6 +6,8 @@ scalaVersion := "2.12.2"
 
 val finagleRelease = "6.45.0"
 
+resolvers += Resolver.url("scoverage-bintray", url("https://dl.bintray.com/sksamuel/sbt-plugins/"))(Resolver.ivyStylePatterns)
+
 libraryDependencies := Seq(
   "com.twitter" %% "finagle-http" % finagleRelease,
   "com.twitter" %% "finagle-core" % finagleRelease,
@@ -20,3 +22,5 @@ libraryDependencies := Seq(
   "org.scalatest" %% "scalatest" % "3.0.0" % "test",
   "org.mockito"   % "mockito-core" % "1.9.5" % "test"
 )
+
+jacoco.settings
