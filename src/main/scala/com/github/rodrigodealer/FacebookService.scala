@@ -8,7 +8,7 @@ import com.twitter.finagle.http.{Request, Response, Status}
 import com.twitter.finagle.{Service, http}
 import com.twitter.util.Future
 
-object FacebookService extends HttpClient {
+class FacebookService extends HttpClient {
 
   def apply(uid: String): Service[Request, Response] = {
     (request: http.Request) => {

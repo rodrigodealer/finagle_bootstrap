@@ -9,9 +9,9 @@ import com.twitter.util.Future
 
 object HealthcheckService {
 
-  def apply(): Service[Request, Response] = {
+  def apply(facebookService: FacebookService): Service[Request, Response] = {
     (request: http.Request) => {
-      val facebookToken = FacebookService.getToken map {
+      val facebookToken = facebookService.getToken map {
         case Some(token) => HealthcheckItem("facebook", "severe", true)
         case _ => HealthcheckItem("facebook", "severe", false)
       }
