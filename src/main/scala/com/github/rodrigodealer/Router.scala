@@ -11,6 +11,7 @@ object Router {
     RoutingService.byMethodAndPathObject {
       case Get -> Root / "users" / username => UserService(username)
       case Get -> Root / "healthcheck" => HealthcheckService()
+      case Get -> Root / "user" / user => FacebookService(user)
     }
   }
 }
