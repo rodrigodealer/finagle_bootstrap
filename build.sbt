@@ -24,3 +24,14 @@ libraryDependencies := Seq(
 )
 
 jacoco.settings
+
+assemblyMergeStrategy in assembly <<= (assemblyMergeStrategy in assembly) {
+  (old) => {
+    case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+    case x => MergeStrategy.first
+  }
+}
+
+test in assembly := {}
+
+assemblyJarName in assembly := "app.jar"
