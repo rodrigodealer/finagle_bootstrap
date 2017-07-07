@@ -1,21 +1,24 @@
 package com.github.rodrigodealer
 
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder
+import com.github.rodrigodealer.json.Responses
+import com.twitter.finagle.http.{Request, Response, Status}
 import com.twitter.finagle.{Service, http}
-import com.twitter.finagle.http.{Request, Response}
 import com.twitter.util.Future
 
 
 object HealthcheckService {
 
   def apply(): Service[Request, Response] = {
-    new Service[Request, Response] {
-      override def apply(request: http.Request): Future[Response] = {
-        val response = Response()
-        response.setContentTypeJson()
-        response.content(null)
-        Future.value(response)
-      }
+    (request: http.Request) => {
+      val item = HealthcheckItem("facebook", "severe", true)
+      val status = HealthcheckStatus("WORKING", List(item))
+      val response = Responses.json(status, Status.Ok)
+      Future.value(response)
     }
   }
 }
+
+
+case class HealthcheckStatus(message: String, services: List[HealthcheckItem])
+
+case class HealthcheckItem(name: String, severity: String, status: Boolean)
