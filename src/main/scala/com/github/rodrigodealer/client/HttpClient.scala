@@ -4,16 +4,22 @@ import com.twitter.finagle.{Http, Service, http}
 import com.twitter.util.Future
 
 trait HttpClient {
-  def httpsClient(host: String) : Service[http.Request, http.Response] = {
-    val service : Service[http.Request, http.Response] = Http
-      .client
-      .withTls(host)
-      .newService(s"$host:443")
+  def httpxClient(host: String, tls: Boolean = true) : Service[http.Request, http.Response] = {
+
+    val service : Service[http.Request, http.Response] = tls match {
+      case true => Http
+        .client
+        .withTls(host)
+        .newService(s"$host:443")
+      case false => Http
+        .client
+        .newService(s"$host:8080")
+    }
     service
   }
 
   def perform(requestToPerform: RequestToPerform) : Future[http.Response] = {
-    val client: Service[http.Request, http.Response] = httpsClient(requestToPerform.host)
+    val client: Service[http.Request, http.Response] = httpxClient(requestToPerform.host, requestToPerform.tls)
     val request = http.Request(requestToPerform.method, requestToPerform.url)
     request.host = requestToPerform.host
     client(request)

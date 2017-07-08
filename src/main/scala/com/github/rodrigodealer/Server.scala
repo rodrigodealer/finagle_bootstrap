@@ -11,16 +11,20 @@ import com.twitter.util.{Await, Duration}
 
 
 object Server extends TwitterServer {
-  def main = {
-    val service = new TimeoutFilter(Duration(5, SECONDS), twitter) andThen
-      ExceptionFilter andThen
-      Router()
+  def main = new FinagleServer
+}
 
-    val server = Http.server.withLabel("finagle")
-      .withStatsReceiver(statsReceiver)
-      .withHttpStats
-      .serve(":8080", service)
-    Await.ready(server)
-    Await.ready(adminHttpServer)
-  }
+class FinagleServer extends TwitterServer {
+  val service = new TimeoutFilter(Duration(5, SECONDS), twitter) andThen
+    ExceptionFilter andThen
+    Router()
+
+  val server = Http.server.withLabel("finagle")
+    .withStatsReceiver(statsReceiver)
+    .withHttpStats
+    .serve(":8080", service)
+  Await.ready(server)
+  Await.ready(adminHttpServer)
+
+  onExit { server.close() }
 }
