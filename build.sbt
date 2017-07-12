@@ -16,6 +16,7 @@ libraryDependencies := Seq(
   "com.twitter" %% "finagle-stats" % finagleRelease,
   "com.twitter" %% "finagle-zipkin" % finagleRelease,
   "com.twitter" %% "util-logging" % finagleRelease,
+  "com.outr"    %% "scarango-driver" % "0.6.0",
   "io.dropwizard.metrics" % "metrics-core" % "3.2.0",
   "com.typesafe"  % "config" % "1.2.1",
   "org.slf4j"     % "slf4j-log4j12" % "1.7.10",

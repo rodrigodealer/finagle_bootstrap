@@ -14,7 +14,20 @@ object Responses {
   def json(data: Any, code: Status) = {
     val response = Response()
     response.setContentTypeJson
+    response.status = code
     response.content = new ChannelBufferBuf(copiedBuffer(mapper.writeValueAsBytes(data)))
+    response
+  }
+
+  def respond(data: String, code: Status) = {
+    val response = Response()
+    response.content = new ChannelBufferBuf(copiedBuffer(data.getBytes))
+    response
+  }
+
+  def respond(code: Status) = {
+    val response = Response()
+    response.status = code
     response
   }
 }
