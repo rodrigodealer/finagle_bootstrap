@@ -10,11 +10,13 @@ object Router {
 
   val facebookService = new FacebookService
 
+
   def apply() : Service[Request, Response] = {
     RoutingService.byMethodAndPathObject {
       case Get -> Root / "healthcheck" => HealthcheckService(facebookService)
       case Get -> Root / "user" / user => facebookService(user)
       case Post -> Root / "subscription" => SubscriptionService()
+      case Post -> Root / "update" => UserUpdateService(facebookService)
     }
   }
 }

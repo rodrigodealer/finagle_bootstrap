@@ -1,6 +1,6 @@
 package com.github.rodrigodealer
 
-import com.github.rodrigodealer.client.{GetRequest, HttpClient, RequestToPerform}
+import com.github.rodrigodealer.client.{GetRequest, HttpClient}
 import com.github.rodrigodealer.json.JsonUtil.fromJson
 import com.github.rodrigodealer.model.{BasicFacebookUser, FacebookToken}
 import com.twitter.finagle.http.Status.Ok

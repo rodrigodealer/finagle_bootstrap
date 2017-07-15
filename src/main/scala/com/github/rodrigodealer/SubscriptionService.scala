@@ -1,7 +1,7 @@
 package com.github.rodrigodealer
 
-import com.twitter.finagle.{Service, http}
 import com.twitter.finagle.http.{Request, Response, Status}
+import com.twitter.finagle.{Service, http}
 import com.twitter.util.Future
 import org.apache.log4j.Logger
 
