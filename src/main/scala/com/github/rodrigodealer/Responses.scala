@@ -3,7 +3,7 @@ package com.github.rodrigodealer
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.twitter.finagle.http.{Response, Status}
-import com.twitter.finagle.netty3.ChannelBufferBuf
+import com.twitter.io.Buf
 import org.jboss.netty.buffer.ChannelBuffers.copiedBuffer
 
 
@@ -15,13 +15,13 @@ object Responses {
     val response = Response()
     response.setContentTypeJson
     response.status = code
-    response.content = new ChannelBufferBuf(copiedBuffer(mapper.writeValueAsBytes(data)))
+    response.content = Buf.Utf8(mapper.writeValueAsString(data))
     response
   }
 
   def respond(data: String, code: Status) = {
     val response = Response()
-    response.content = new ChannelBufferBuf(copiedBuffer(data.getBytes))
+    response.content = Buf.Utf8(data)
     response
   }
 

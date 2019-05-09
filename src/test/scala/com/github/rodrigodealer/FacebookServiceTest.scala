@@ -4,9 +4,8 @@ import com.github.rodrigodealer.client.{HttpClient, RequestToPerform}
 import com.github.rodrigodealer.model.{BasicFacebookUser, FacebookToken}
 import com.twitter.finagle.http
 import com.twitter.finagle.http.{Response, Status}
-import com.twitter.finagle.netty3.ChannelBufferBuf
+import com.twitter.io.Buf
 import com.twitter.util.{Await, Future}
-import org.jboss.netty.buffer.ChannelBuffers.copiedBuffer
 import org.scalatest.{FlatSpec, Matchers}
 
 class FacebookServiceTest extends FlatSpec with Matchers {
@@ -18,7 +17,7 @@ class FacebookServiceTest extends FlatSpec with Matchers {
       override def perform(requestToPerform: RequestToPerform) : Future[http.Response]  = {
         val response = Response()
         response.status = Status.Ok
-        response.content(new ChannelBufferBuf(copiedBuffer("{\"access_token\":\"1203725573077981|HrXuRe8Ph7hzzGHH-8ATjMMlojg\",\"token_type\":\"bearer\"}".getBytes)))
+        response.content(Buf.Utf8("{\"access_token\":\"1203725573077981|HrXuRe8Ph7hzzGHH-8ATjMMlojg\",\"token_type\":\"bearer\"}"))
         Future(response)
       }
     }
@@ -49,7 +48,7 @@ class FacebookServiceTest extends FlatSpec with Matchers {
       override def perform(requestToPerform: RequestToPerform) : Future[http.Response]  = {
         val response = Response()
         response.status = Status.Ok
-        response.content(new ChannelBufferBuf(copiedBuffer("{\"name\":\"1\",\"id\":\"2\"}".getBytes)))
+        response.content(Buf.Utf8("{\"name\":\"1\",\"id\":\"2\"}"))
         Future(response)
       }
     }

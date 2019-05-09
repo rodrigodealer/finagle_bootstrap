@@ -14,6 +14,6 @@ class HttpClientTest extends FlatSpec with Matchers {
 
     val request = Await.result(klazz.perform(requestToPerform))
 
-    request.status shouldBe Status.Found
+    request.status shouldBe Status.MovedPermanently
   }
 }
